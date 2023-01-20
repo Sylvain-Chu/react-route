@@ -4,17 +4,25 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import Root, {
+import Home, {
     loader as rootLoader,
 } from "./routes/home";
+import Anime from "./routes/anime.jsx";
 
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root/>,
+        element: <Home/>,
         loader: rootLoader,
+        children: [
+            {
+                path: "/anime/:id",
+                element: <Anime/>,
+                loader: rootLoader,
+            },
+        ],
     },
 ]);
 

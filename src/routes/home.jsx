@@ -5,18 +5,13 @@ import {
 import {getAnimes} from "../anime.js";
 import "../css/Anime.css";
 
-export async function action() {
-    const contact = await createContact();
-    return redirect(`/contacts/${contact.id}/edit`);
-}
-
 export async function loader({request}) {
     let animes = await getAnimes();
     animes = animes.data.Page.media;
     return {animes};
 }
 
-export default function Root() {
+export default function Home() {
 
     const {animes} = useLoaderData();
 

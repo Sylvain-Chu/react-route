@@ -1,27 +1,27 @@
 import {Form, useLoaderData} from "react-router-dom";
+import {getAnime} from "../anime.js";
+
+export async function loader({ params }) {
+    const anime = await getAnime(params.id);
+    if (!anime) {
+        throw new Response("", {
+            status: 404,
+            statusText: "Not Found",
+        });
+    }
+    console.log(anime);
+    return anime;
+}
 
 export default function Anime() {
 
-    export async function loader({ params }) {
-        const contact = await getContact(params.contactId);
-        if (!contact) {
-            throw new Response("", {
-                status: 404,
-                statusText: "Not Found",
-            });
-        }
-        return contact;
-    }
-
     const anime  = useLoaderData();
-    console.log(anime)
 
     return (
         <div id="anime">
 
             <div>
                 <h1>
-
                     {anime}
                 </h1>
             </div>

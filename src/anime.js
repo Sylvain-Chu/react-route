@@ -35,3 +35,45 @@ export async function getAnimes() {
     }
 }
 
+
+
+export async function getAnime( id ) {
+    const query = `
+query($id: Int) {
+  Media(id: $id, type: ANIME) {
+    id
+    title {
+      romaji
+      english
+    }
+    coverImage {
+      large
+    }
+  }
+}
+`;
+
+    const variables = {
+        $id: id
+    }
+    const url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data.data.Media;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
